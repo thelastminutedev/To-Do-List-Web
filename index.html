@@ -55,5 +55,28 @@
         <button id="addTaskButton">Add Task</button>
         <ul id="taskList" style="list-style-type: none; padding: 0;"></ul>
     </div>
+    <script>
+    // Get references to the DOM elements
+    const addTaskButton = document.getElementById('addTaskButton');
+    const taskInput = document.getElementById('taskInput');
+    const taskList = document.getElementById('taskList');
+
+    // Function to add a task to the list
+    addTaskButton.addEventListener('click', function() {
+        const taskText = taskInput.value.trim(); // Get the text from the input field
+
+        if (taskText !== '') {
+            // Create a new list item (li) element
+            const newTask = document.createElement('li');
+            newTask.textContent = taskText;
+
+            // Append the new task to the task list (ul)
+            taskList.appendChild(newTask);
+
+            // Clear the input field after adding the task
+            taskInput.value = '';
+        }
+    });
+</script>
 </body>
 </html>

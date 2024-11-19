@@ -68,7 +68,7 @@ li {
     border-radius: 4px;
 }
 
-.delete-btn {
+.edit-btn, .delete-btn {
     background-color: #e74c3c;
     border: none;
     color: white;
@@ -77,28 +77,8 @@ li {
     border-radius: 4px;
 }
 
-.delete-btn:hover {
+.edit-btn:hover, .delete-btn:hover {
     background-color: #c0392b;
-}
-
-@media (max-width: 480px) {
-    .input-container {
-        flex-direction: column;
-    }
-
-    input, button {
-        width: 100%;
-        margin-bottom: 10px;
-    }
-}
-
-li.fade-out {
-    animation: fadeOut 0.5s ease forwards;
-}
-
-@keyframes fadeOut {
-    from { opacity: 1; }
-    to { opacity: 0; }
 }
 
 #clearAllButton {
@@ -112,4 +92,15 @@ li.fade-out {
 
 #clearAllButton:hover {
     background-color: #c0392b;
+}
+
+@media (max-width: 480px) {
+    .input-container {
+        flex-direction: column;
+    }
+
+    input, button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
 }

@@ -26,16 +26,24 @@
             border-radius: 8px;
             width: 300px;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .input-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
         }
         input {
-            width: 80%;
+            width: 75%;
             padding: 8px;
             margin-bottom: 10px;
             border: 1px solid #ddd;
             border-radius: 4px;
         }
         button {
-            width: 50%;
+            width: 20%;
             padding: 8px;
             background-color: #4CAF50;
             color: white;
@@ -46,40 +54,80 @@
         button:hover {
             background-color: #45a049;
         }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px;
+            background-color: #f9f9f9;
+            margin: 5px 0;
+            border-radius: 4px;
+        }
+        .delete-btn {
+            background-color: #e74c3c;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+        .delete-btn:hover {
+            background-color: #c0392b;
+        }
     </style>
 </head>
 <body>
     <h1>To-Do List</h1>
     <div class="container">
-        <input type="text" id="taskInput" placeholder="Add a new task" />
-        <button id="addTaskButton">Add Task</button>
-        <ul id="taskList" style="list-style-type: none; padding: 0;"></ul>
+        <div class="input-container">
+            <input type="text" id="taskInput" placeholder="Add a new task" />
+            <button id="addTaskButton">Add Task</button>
+        </div>
+        <ul id="taskList"></ul>
     </div>
     <script>
-        // Get references to the DOM elements
         const addTaskButton = document.getElementById('addTaskButton');
         const taskInput = document.getElementById('taskInput');
         const taskList = document.getElementById('taskList');
 
         // Function to add a task to the list
+        function addTask(taskText) {
+            const newTask = document.createElement('li');
+            newTask.textContent = taskText;
+
+            // Create delete button
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Delete';
+            deleteButton.classList.add('delete-btn');
+            deleteButton.addEventListener('click', function() {
+                newTask.remove();
+            });
+
+            // Append delete button to the task
+            newTask.appendChild(deleteButton);
+            taskList.appendChild(newTask);
+        }
+
+        // Event listener for the "Add Task" button
         addTaskButton.addEventListener('click', function() {
-            const taskText = taskInput.value.trim(); // Get the text from the input field
-
+            const taskText = taskInput.value.trim();
             if (taskText !== '') {
-                // Create a new list item (li) element
-                const newTask = document.createElement('li');
-                newTask.textContent = taskText;
-
-                // Add a click event listener to delete the task
-                newTask.addEventListener('click', function() {
-                    newTask.remove(); // Remove the task when clicked
-                });
-
-                // Append the new task to the task list (ul)
-                taskList.appendChild(newTask);
-
-                // Clear the input field after adding the task
+                addTask(taskText);
                 taskInput.value = '';
+            }
+        });
+
+        // Event listener for pressing the Enter key
+        taskInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                const taskText = taskInput.value.trim();
+                if (taskText !== '') {
+                    addTask(taskText);
+                    taskInput.value = '';
+                }
             }
         });
     </script>
